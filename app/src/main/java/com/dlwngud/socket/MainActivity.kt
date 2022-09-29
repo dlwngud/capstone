@@ -40,6 +40,23 @@ class MainActivity : AppCompatActivity() {
         // Socket.EVNET_CONNECT는 서버와 클라이언트와 연결되었을 때, 서버로부터 자동적으로 전송되는 메세지
         mSocket.on(Socket.EVENT_CONNECT, onConnect)
 
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            val msg = token.toString();
+            Log.d(TAG, msg)
+            binding.tv.text = msg
+        })
+
+
         binding.btn.setOnClickListener {
             val data = "drive"
             mSocket.emit("message", data)
@@ -60,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
         runOnUiThread {
             binding.tv.text = data
-            Toast.makeText(this@MainActivity,data,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, data, Toast.LENGTH_SHORT).show()
         }
     }
 }
