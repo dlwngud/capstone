@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         // .on = 메시지를 받았을 때 동작 수행.
         // .emit = 메시지를 전송하는 동작 수행.
         try {
-            mSocket = IO.socket("http://192.168.0.5:9999")
+            mSocket = IO.socket("http://172.16.48.157:9999")
             mSocket.connect()
             Log.d("Connected", "OK")
         } catch (e: URISyntaxException) {
@@ -41,30 +41,31 @@ class MainActivity : AppCompatActivity() {
         mSocket.on(Socket.EVENT_CONNECT, onConnect)
 
 
+        // 파이어베이스에서 토큰 가져오기
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w(TAG, "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
 
-            // Get new FCM registration token
+             // Get new FCM registration token
             val token = task.result
 
             // Log and toast
             val msg = token.toString();
             Log.d(TAG, msg)
-            binding.tv.text = msg
+//            binding.tv.text = msg
+            mSocket.emit("token", msg)
         })
 
 
+        // 주행 시작을 알림
         binding.btn.setOnClickListener {
-            val data = "drive"
-            mSocket.emit("message", data)
+            mSocket.emit("drive", "drive")
         }
 
-        // parking이라는 메세지가 들어올때
+        // 주차완료 메세지가 들어올때
         mSocket.on("parking", onMessage)
-
     }
 
     val onConnect = Emitter.Listener {
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("parking", data)
 
         runOnUiThread {
-            binding.tv.text = data
+//            binding.tv.text = data
             Toast.makeText(this@MainActivity, data, Toast.LENGTH_SHORT).show()
         }
     }
