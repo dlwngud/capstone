@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">socket</string>
+    <string name="app_name">자율주차</string>
+    <string name="parking">자율 주차</string>
+    <string name="call">호출</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

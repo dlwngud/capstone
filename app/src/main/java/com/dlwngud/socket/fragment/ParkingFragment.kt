@@ -1,0 +1,40 @@
+package com.dlwngud.socket.fragment
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import com.dlwngud.socket.R
+import com.dlwngud.socket.databinding.FragmentParkingBinding
+import io.socket.client.Socket
+
+// 바인딩 객체 타입에 ?를 붙여서 null을 허용 해줘야한다. ( onDestroy 될 때 완벽하게 제거를 하기위해 )
+private var mBinding: FragmentParkingBinding? = null
+// 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
+private val binding get() = mBinding!!
+
+class ParkingFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        val binding = FragmentParkingBinding.inflate(inflater, container, false)
+
+        // 주행 시작을 알림
+        binding.btnParking.setOnClickListener {
+            com.dlwngud.socket.socket.Socket.mSocket.emit("drive", "drive")
+        }
+
+        return binding.root
+    }
+
+    // 프래그먼트가 destroy 될때
+    override fun onDestroyView() {
+        // onDestroyView 에서 binding class 인스턴스 참조를 정리해주어야 한다.
+        mBinding = null
+        super.onDestroyView()
+    }
+}

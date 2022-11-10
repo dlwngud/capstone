@@ -57,7 +57,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder =
             NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.mipmap.sym_def_app_icon)
+                .setSmallIcon(R.drawable.ic_menu_mylocation)
                 .setContentTitle("새로운 메세지입니다")
                 .setContentText(messageBody)
                 .setAutoCancel(true)

@@ -28,6 +28,7 @@ class SplashActivity : AppCompatActivity() {
         handler.postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            com.dlwngud.socket.socket.Socket.connectSocket()
             finish()
         }, 1000
         )
