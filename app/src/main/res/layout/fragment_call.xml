@@ -13,6 +13,7 @@
         android:background="@drawable/selector_view"
         android:text="호출"
         android:textSize="30sp"
+        android:textColor = "@drawable/color_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

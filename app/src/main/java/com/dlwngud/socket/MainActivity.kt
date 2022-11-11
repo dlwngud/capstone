@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     break
                 }
-                if(isNetworkAvailable() && com.dlwngud.socket.socket.Socket.connectSocket()){
+                else if(isNetworkAvailable() && com.dlwngud.socket.socket.Socket.connectSocket()){
                     isReady = true
                     break
                 }

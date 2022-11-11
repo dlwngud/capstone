@@ -13,12 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Socket"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true"
-            android:theme="@style/Splash">
 
-        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
