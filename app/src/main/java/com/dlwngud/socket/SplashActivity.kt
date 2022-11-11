@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.net.NetworkInfo
 import android.widget.Toast
+import com.dlwngud.socket.socket.Socket
 
 
 class SplashActivity : AppCompatActivity() {
@@ -28,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
         handler.postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            com.dlwngud.socket.socket.Socket.connectSocket()
+            Socket.connectSocket()
             finish()
         }, 1000
         )

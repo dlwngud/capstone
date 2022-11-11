@@ -13,15 +13,17 @@ object Socket {
     // 소켓 통신을 위한 Socket 객체 생성
     lateinit var mSocket: Socket
 
-    fun connectSocket(){
+    fun connectSocket(): Boolean{
         try {
-            mSocket = IO.socket("http://192.168.0.5:9999")
+            mSocket = IO.socket("http://172.16.29.177:9999")
             mSocket.connect()
             Log.d("Connected", "OK")
+            mSocket.on(Socket.EVENT_CONNECT, onConnect)
+            return true
         } catch (e: URISyntaxException) {
             Log.d("ERR", e.toString())
         }
-        mSocket.on(Socket.EVENT_CONNECT, onConnect)
+        return false
     }
 
     val onConnect = Emitter.Listener {

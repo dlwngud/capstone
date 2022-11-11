@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.dlwngud.socket.R
 import com.dlwngud.socket.databinding.FragmentParkingBinding
+import com.dlwngud.socket.socket.Socket.mSocket
 import io.socket.client.Socket
 
 // 바인딩 객체 타입에 ?를 붙여서 null을 허용 해줘야한다. ( onDestroy 될 때 완벽하게 제거를 하기위해 )
@@ -25,7 +26,7 @@ class ParkingFragment : Fragment() {
 
         // 주행 시작을 알림
         binding.btnParking.setOnClickListener {
-            com.dlwngud.socket.socket.Socket.mSocket.emit("drive", "drive")
+            mSocket.emit("drive", "drive")
         }
 
         return binding.root

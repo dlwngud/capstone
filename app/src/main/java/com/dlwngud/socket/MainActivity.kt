@@ -1,10 +1,17 @@
 package com.dlwngud.socket
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.ViewTreeObserver
+import android.widget.Toast
 import com.dlwngud.socket.databinding.ActivityMainBinding
 import com.dlwngud.socket.fragment.CallFragment
+import com.dlwngud.socket.fragment.HomeFragment
 import com.dlwngud.socket.fragment.ParkingFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.Constants.MessageNotificationKeys.TAG
@@ -13,20 +20,54 @@ import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import java.net.URISyntaxException
+import kotlin.concurrent.thread
 
 
 private lateinit var binding: ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    // 소켓 통신을 위한 Socket 객체 생성
-//    lateinit var mSocket: Socket
+    private var isReady = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+        thread(start = true) {
+            for (i in 1..5) {
+                Thread.sleep(500)
+                if(!isNetworkAvailable()){
+                    runOnUiThread{
+                        Toast.makeText(this,"네트워크 상태를 확인해주세요.", Toast.LENGTH_SHORT).show()
+                    }
+                    break
+                }
+                if(isNetworkAvailable() && com.dlwngud.socket.socket.Socket.connectSocket()){
+                    isReady = true
+                    break
+                }
+            }
+        }
+
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    // Check if the initial data is ready.
+                    return if (isReady) {
+                        // The content is ready; start drawing.
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        // The content is not ready; suspend.
+                        false
+                    }
+                }
+            }
+        )
 
         // 파이어베이스에서 토큰 가져오기
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -35,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnCompleteListener
             }
 
-             // Get new FCM registration token
+            // Get new FCM registration token
             val token = task.result
 
             // Log and toast
@@ -47,6 +88,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
+                R.id.action_home -> {
+                    val homeFragment = HomeFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentFrame, homeFragment).commit()
+                    true
+                }
                 R.id.action_parking -> {
                     val parkingFragment = ParkingFragment()
                     supportFragmentManager.beginTransaction()
@@ -76,5 +123,19 @@ class MainActivity : AppCompatActivity() {
 //            binding.tv.text = data
 //            Toast.makeText(this@MainActivity, data, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // 네트워크 연결 상태 확인
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = baseContext
+            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager != null) {
+            val info = connectivityManager.allNetworkInfo
+            if (info != null) for (i in info.indices) if (info[i].state == NetworkInfo.State.CONNECTED) {
+                Log.d("networkConnect","OK")
+                return true
+            }
+        }
+        return false
     }
 }
