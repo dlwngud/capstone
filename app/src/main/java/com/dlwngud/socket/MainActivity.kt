@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-
         thread(start = true) {
             for (i in 1..5) {
                 Thread.sleep(500)

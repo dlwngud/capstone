@@ -15,7 +15,7 @@ object Socket {
 
     fun connectSocket(): Boolean{
         try {
-            mSocket = IO.socket("http://172.16.29.177:9999")
+            mSocket = IO.socket("http://192.168.0.5:9999")
             mSocket.connect()
             Log.d("Connected", "OK")
             mSocket.on(Socket.EVENT_CONNECT, onConnect)
