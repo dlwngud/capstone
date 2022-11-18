@@ -3,8 +3,8 @@
     <item
         android:id="@+id/action_home"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/home" />
+        android:icon="@drawable/ic_baseline_location_on_24"
+        android:title="@string/location" />
     <item
         android:id="@+id/action_parking"
         android:enabled="true"
