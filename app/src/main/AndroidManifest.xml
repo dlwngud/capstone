@@ -41,6 +41,10 @@
         <meta-data
             android:name="firebase_analytics_collection_enabled"
             android:value="false" />
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="9decc91ccd410ee5322c931adaa59cdb" />
     </application>
 
 </manifest>

@@ -21,6 +21,12 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import java.net.URISyntaxException
 import kotlin.concurrent.thread
+import android.content.pm.PackageManager
+
+import android.content.pm.PackageInfo
+import android.util.Base64
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 private lateinit var binding: ActivityMainBinding
@@ -50,6 +56,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        getHashKey()
 
         val content: View = findViewById(android.R.id.content)
         content.viewTreeObserver.addOnPreDrawListener(
@@ -113,6 +121,24 @@ class MainActivity : AppCompatActivity() {
 //        mSocket.on("parking", onMessage)
     }
 
+    private fun getHashKey() {
+        var packageInfo: PackageInfo? = null
+        try {
+            packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        if (packageInfo == null) Log.e("KeyHash", "KeyHash:null")
+        for (signature in packageInfo!!.signatures) {
+            try {
+                val md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            } catch (e: NoSuchAlgorithmException) {
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=$signature", e)
+            }
+        }
+    }
 
     private val onMessage = Emitter.Listener { args ->
         val data = args[0].toString()
