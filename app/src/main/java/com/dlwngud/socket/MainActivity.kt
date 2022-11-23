@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         toDoSplash()
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentFrame, HomeFragment()).commit()
 
         val content: View = findViewById(android.R.id.content)
         content.viewTreeObserver.addOnPreDrawListener(
