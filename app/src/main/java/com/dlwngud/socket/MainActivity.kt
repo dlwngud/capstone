@@ -41,23 +41,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        thread(start = true) {
-            for (i in 1..5) {
-                Thread.sleep(500)
-                if(!isNetworkAvailable()){
-                    runOnUiThread{
-                        Toast.makeText(this,"네트워크 상태를 확인해주세요.", Toast.LENGTH_SHORT).show()
-                    }
-                    break
-                }
-                else if(isNetworkAvailable() && com.dlwngud.socket.socket.Socket.connectSocket()){
-                    isReady = true
-                    break
-                }
-            }
-        }
-
-        getHashKey()
+        toDoSplash()
 
         val content: View = findViewById(android.R.id.content)
         content.viewTreeObserver.addOnPreDrawListener(
@@ -75,23 +59,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
-
-        // 파이어베이스에서 토큰 가져오기
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-
-            // Get new FCM registration token
-            val token = task.result
-
-            // Log and toast
-            val msg = token.toString();
-            Log.d(TAG, msg)
-//            binding.tv.text = msg
-//            mSocket.emit("token", msg)
-        })
 
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
@@ -121,6 +88,41 @@ class MainActivity : AppCompatActivity() {
 //        mSocket.on("parking", onMessage)
     }
 
+    private fun toDoSplash() {
+        thread(start = true) {
+            for (i in 1..5) {
+                Thread.sleep(500)
+                if (!isNetworkAvailable()) {
+                    runOnUiThread {
+                        Toast.makeText(this, "네트워크 상태를 확인해주세요.", Toast.LENGTH_SHORT).show()
+                    }
+                    break
+                } else if (isNetworkAvailable() && com.dlwngud.socket.socket.Socket.connectSocket()) {
+                    isReady = true
+                    break
+                }
+            }
+        }
+    }
+
+    fun getFirebaseToken() {
+        // 파이어베이스에서 토큰 가져오기
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            val msg = token.toString();
+            Log.d(TAG, msg)
+        })
+    }
+
+    // 앱의 해쉬값 확인
     private fun getHashKey() {
         var packageInfo: PackageInfo? = null
         try {
@@ -157,7 +159,7 @@ class MainActivity : AppCompatActivity() {
         if (connectivityManager != null) {
             val info = connectivityManager.allNetworkInfo
             if (info != null) for (i in info.indices) if (info[i].state == NetworkInfo.State.CONNECTED) {
-                Log.d("networkConnect","OK")
+                Log.d("networkConnect", "OK")
                 return true
             }
         }
