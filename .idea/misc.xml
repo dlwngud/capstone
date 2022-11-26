@@ -7,7 +7,9 @@
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/drawable/circular_button_clicked.xml" value="0.159375" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/drawable/color_selector.xml" value="0.21851851851851853" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/drawable/ic_baseline_directions_car_24.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/drawable/ic_baseline_my_location_24.xml" value="0.21851851851851853" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/drawable/item_button_click_event.xml" value="0.1" />
+        <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/drawable/location_button.xml" value="0.21851851851851853" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/drawable/selector_view.xml" value="0.159375" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/layout/activity_call.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/layout/activity_main.xml" value="0.259375" />
@@ -15,7 +17,7 @@
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/layout/dialog_custom_progress.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/layout/dialog_progress.xml" value="0.2" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/layout/fragment_call.xml" value="0.264" />
-        <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/layout/fragment_home.xml" value="0.259375" />
+        <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/layout/fragment_parking.xml" value="0.264" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/layout/fragment_progress_dialog.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/dlwng/AndroidStudioProjects/socket/app/src/main/res/layout/fragment_progress_dialog2.xml" value="0.14635416666666667" />

@@ -11,4 +11,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageButton
+        android:id="@+id/btn_now_location"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_my_location_24"
+        android:background="@drawable/location_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="70dp"/>
+
+    <Button
+        android:id="@+id/btn_find_parking"
+        android:text="주차장"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/location_button"
+        app:layout_constraintBottom_toTopOf="@+id/btn_now_location"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
