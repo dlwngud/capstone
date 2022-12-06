@@ -25,6 +25,7 @@ import android.content.pm.PackageManager
 
 import android.content.pm.PackageInfo
 import android.util.Base64
+import noman.googleplaces.PlacesListener
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -61,6 +62,8 @@ class MainActivity : AppCompatActivity() {
             }
         )
 
+        getFirebaseToken()
+
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.action_home -> {
@@ -84,9 +87,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-        // 주차완료 메세지가 들어올때
-//        mSocket.on("parking", onMessage)
     }
 
     private fun toDoSplash() {

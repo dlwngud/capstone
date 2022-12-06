@@ -16,6 +16,14 @@ import com.google.firebase.messaging.RemoteMessage
 class MyFirebaseMessagingService: FirebaseMessagingService() {
     val TAG = "FIREBASE_MESSAGING"
 
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+
+        Log.d(TAG, "FCM token creat: $token")
+
+        MainActivity()
+    }
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
         Log.d(TAG, "From: " + remoteMessage.from)
@@ -58,7 +66,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         val notificationBuilder =
             NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_menu_mylocation)
-                .setContentTitle("새로운 메세지입니다")
+                .setContentTitle("주차앱")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

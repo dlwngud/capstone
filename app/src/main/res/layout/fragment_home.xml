@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layout_home"
     tools:context=".fragment.HomeFragment">
 
-    <net.daum.mf.map.api.MapView
+    <com.google.android.gms.maps.MapView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -16,7 +17,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_baseline_my_location_24"
-        android:background="@drawable/location_button"
+        android:background="@drawable/btn_selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="20dp"
@@ -27,7 +28,7 @@
         android:text="주차장"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/location_button"
+        android:background="@drawable/btn_selected"
         app:layout_constraintBottom_toTopOf="@+id/btn_now_location"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="20dp"

@@ -15,7 +15,8 @@ object Socket {
 
     fun connectSocket(): Boolean{
         try {
-            mSocket = IO.socket("http://172.16.3.91:9999")
+//            mSocket = IO.socket("http://172.16.20.246:9999")
+            mSocket = IO.socket("https://port-0-cap-server-bjhwch25lb953lb1.gksl2.cloudtype.app/")
             mSocket.connect()
             Log.d("Connected", "OK")
             mSocket.on(Socket.EVENT_CONNECT, onConnect)
